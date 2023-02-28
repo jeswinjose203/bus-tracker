@@ -3,6 +3,9 @@ var http = require('http');
 const express = require('express');
 const app = express();
 const path = require('path');
+
+const PORT = process.env.PORT || 3030;
+
 app.use(express.urlencoded({ extended: true }));
 app.use('/css',express.static(path.join(__dirname,'node_modules/bootstrap/dist/css')));
 app.use('/js',express.static(path.join(__dirname,'node_modules/bootstrap/dist/js')));
@@ -168,4 +171,4 @@ app.get('/bus_no_3',function(req,res)
         }
     });
 });
-http.createServer(app).listen(8080);
+http.createServer(app).listen(PORT);
