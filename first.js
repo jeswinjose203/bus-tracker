@@ -3,11 +3,11 @@ var http = require('http');
 const express = require('express');
 const app = express();
 const path = require('path');
-
+const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 3030;
 
 app.use(express.urlencoded({ extended: true }));
-
+app.use(bodyParser.json());
 app.use('/css',express.static(path.join(__dirname,'node_modules/bootstrap/dist/css')));
 app.use('/js',express.static(path.join(__dirname,'node_modules/bootstrap/dist/js')));
 app.get('/',function(req,res){
@@ -39,6 +39,11 @@ app.get('/bus_no_1',function(req,res)
 
 
           app.post('/data', (req1, res1) => {
+            const { lat, lon } = req1.body;
+            console.log(`Latitude: ${lat}, Longitude: ${lon}`);
+            res.write(`<h1>success</h1>`);
+            res1.sendStatus(200);
+            /*
             res1.write(pgResp);
             
            res1.write(`
@@ -81,7 +86,7 @@ app.get('/bus_no_1',function(req,res)
         <div id="myMap"></div>
         <h1>${req1.body.lat}</h1>
         </body>
-        `);
+        `);*/
         res1.end();
         });
         res.end();
