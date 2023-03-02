@@ -94,6 +94,12 @@ app.get('/bus_no_1',function(req,res)
         }
     });
 });
+app.post('/data', (req, res) => {
+    const { lat, lon } = req.body;
+    console.log(`Latitude: ${lat}, Longitude: ${lon}`);
+    res.sendStatus(200);
+  });
+  
 app.get('/bus_no_2',function(req,res)
 {
     fs.readFile("index.html", function (error, pgResp){
