@@ -94,7 +94,7 @@ app.get('/bus_no_1',function(req,res)
         }
     });
 });
-app.get('/data', (req, res) => {
+app.post('/data', (req, res) => {
     const { lat, lon } = req.body;
     res.write(`Latitude: ${lat}, Longitude: ${lon}`);
     res.end();
