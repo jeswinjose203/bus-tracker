@@ -82,7 +82,7 @@ app.get('/bus_no_1',function(req,res)
         </body>
         `);*/
         const { lat, lon } = req1.body;
-        res1.write(`Received lat: ${lat}, lon: ${lon}`);
+        res1.write(`<h1>Received lat: ${lat}, lon: ${lon}</h1>`);
         res1.sendStatus(200);
         res1.end();
         });
