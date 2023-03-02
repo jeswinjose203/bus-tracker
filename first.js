@@ -96,8 +96,8 @@ app.get('/bus_no_1',function(req,res)
 });
 app.get('/data', (req, res) => {
     const { lat, lon } = req.body;
-    console.log(`Latitude: ${lat}, Longitude: ${lon}`);
-    res.sendStatus(200);
+    res.write(`Latitude: ${lat}, Longitude: ${lon}`);
+    res.end();
   });
   
 app.get('/bus_no_2',function(req,res)
