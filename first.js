@@ -7,6 +7,8 @@ const path = require('path');
 const PORT = process.env.PORT || 3030;
 
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 app.use('/css',express.static(path.join(__dirname,'node_modules/bootstrap/dist/css')));
 app.use('/js',express.static(path.join(__dirname,'node_modules/bootstrap/dist/js')));
 app.get('/',function(req,res){
