@@ -52,7 +52,7 @@ app.get('/bus_no_1',function(req,res)
             
                 // Parse the location data and do something with it
                 const locationData = JSON.parse(data);
-                console.log(`Latitude: ${locationData.lat}, Longitude: ${locationData.lon}`);
+                res.write(`Latitude: ${locationData.lat}, Longitude: ${locationData.lon}`);
               });
             });
         res.end();
