@@ -36,59 +36,6 @@ app.get('/bus_no_1',function(req,res)
             
             // here in req1,body.data  we have the data that have been sent from esp8266
 
-            res.write(`
-            <form action="/data" method="post">
-             <div class="row">
-              <div class="col">
-              <input type="text" class="form-control" id="i1" name="SR_NO2" placeholder="SR NO">
-                </div>
-           
-                <div class="col">
-                <input type="text" class="form-control" id="i2" name="REGULATOR" placeholder="Regulator">
-                </div>
-                <div class="col">
-                <input type="text" class="form-control" id="i3" name="AUD_DATE" placeholder="Audit Date">
-                </div>
-            
-                <div class="col">
-                <input type="text" class="form-control" id="i4" name="NO_OF_FINDINGS" placeholder="No of findings">
-                </div>
-                <div class="col">
-                <input type="text" class="form-control" id="i5" name="NO_OF_OBSERV" placeholder="No of observations">
-                </div>
-                <div class="col">
-                <input type="text" class="form-control" id="i6" name="CAP_DUE_DATE" placeholder="cap due date">
-                </div>
-                
-                <div class="col">
-                <input type="text" class="form-control" id="i7" name="CAP_SUBMT_DATE" placeholder="Cap submitted date">
-                </div>
-                
-                <div class="col">
-                <input type="text" class="form-control" id="i8" name="CA_submit_due_date" placeholder="Ca submit due date">
-                </div>
-                
-                <div class="col">
-                <input type="text" class="form-control" id="i9" name="CA_SUBMT_DATE" placeholder="Ca submitted date">
-                </div>
-               <div class="col">
-                <input type="text" class="form-control" id="i9" name="Audit_clos" placeholder="Audit closure date">
-                </div>
-                <div class="col">
-                <input type="text" class="form-control" id="i10" name="REMARKS" placeholder="REMARKS">
-                </div>
-                <div class="row">
-                <div class="col-10">
-                </div>
-                <div class="col-2">
-           
-                <button type="submit" class="btn btn-primary mb-3" style="margin-top: 4%;">SAVE CHANGES</button>
-                
-                </div>
-                </div>
-                </div>
-            </form>
-          `);
 
           app.post('/data', (req1, res1) => {
             res1.write(pgResp);
@@ -130,6 +77,7 @@ app.get('/bus_no_1',function(req,res)
             </head>
         <body>
         <div id="myMap"></div>
+        <h1>${req1.body.lat}</h1>
         </body>
         `);
         res1.end();
