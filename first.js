@@ -38,68 +38,29 @@ app.get('/bus_no_1',function(req,res)
             // here in req1,body.data  we have the data that have been sent from esp8266
 
 
-          app.post('/data', (req1, res1) => {
-            const { lat, lon } = req1.body;
-            console.log(`Latitude: ${lat}, Longitude: ${lon}`);
-            res.write(`<h1>success</h1>`);
-            res1.sendStatus(200);
-            /*
-            res1.write(pgResp);
+            const WebSocket = require('ws');
+
+            const wss = new WebSocket.Server({ port: 8080 });
             
-           res1.write(`
-           <head>
-                <title>My Location</title>
-                <meta charset="utf-8" />
-                <style>
-                #myMap {
-                    height: 400px;
-                    width: 100%;
-                }
-                </style>
-                    <script src="https://www.bing.com/api/maps/mapcontrol?key=AmhMfBZLCSDiPKsfakqFoNOIQAO2ot6WHmRfJOOByGBtg5zNzKwf6IN7zTl7DH2y&callback=loadMapScenario" async defer></script>
-                    <script>
-                        function loadMapScenario() {
-                        navigator.geolocation.getCurrentPosition(
-                        function (position) {
-                        var latitude = position.coords.latitude;
-                        var longitude = position.coords.longitude;
-
-                        var map = new Microsoft.Maps.Map("#myMap", {
-                        center: new Microsoft.Maps.Location(latitude, longitude),
-                        zoom: 15,
-                        });
-
-                        var pushpin = new Microsoft.Maps.Pushpin(
-                        map.getCenter(),
-                        null
-                        );
-                        map.entities.push(pushpin);
-                        },
-                        function (error) {
-                        console.log(error);
-                        }
-                        );
-                        }
-                    </script>
-            </head>
-        <body>
-        <div id="myMap"></div>
-        <h1>${req1.body.lat}</h1>
-        </body>
-        `);*/
-        res1.end();
-        });
+            // Handle WebSocket connections
+            wss.on('connection', (ws) => {
+              console.log('New WebSocket connection');
+            
+              // Handle incoming messages
+              ws.on('message', (data) => {
+                console.log(`Received location data: ${data}`);
+            
+                // Parse the location data and do something with it
+                const locationData = JSON.parse(data);
+                console.log(`Latitude: ${locationData.lat}, Longitude: ${locationData.lon}`);
+              });
+            });
         res.end();
 
         }
     });
 });
-app.post('/data', (req, res) => {
-    const { lat, lon } = req.body;
-    res.write(`Latitude: ${lat}, Longitude: ${lon}`);
-    res.end();
-  });
-  
+
 app.get('/bus_no_2',function(req,res)
 {
     fs.readFile("index.html", function (error, pgResp){
