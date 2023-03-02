@@ -39,6 +39,7 @@ app.get('/bus_no_1',function(req,res)
 
           app.post('/data', (req1, res1) => {
             res1.write(pgResp);
+            /*
            res1.write(`
            <head>
                 <title>My Location</title>
@@ -79,7 +80,10 @@ app.get('/bus_no_1',function(req,res)
         <div id="myMap"></div>
         <h1>${req1.body.lat}</h1>
         </body>
-        `);
+        `);*/
+        const { lat, lon } = req1.body;
+        res1.write(`Received lat: ${lat}, lon: ${lon}`);
+        res1.sendStatus(200);
         res1.end();
         });
         res.end();
