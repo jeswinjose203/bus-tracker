@@ -52,15 +52,16 @@ app.get('/bus_no_1',function(req,res)
             res.write(`
             <h1>bus no 1</h1>
             `);
-            
-            res.write('<h1>');
-            res.write(lat1.toString());
-            res.write('</h1>');
+            if(lat1!=undefined && lat2!=undefined)
+            {
+                res.write('<h1>');
+                res.write(lat1.toString());
+                res.write('</h1>');
 
-            res.write('<h1>');
-            res.write(lon1.toString());
-            res.write('</h1>');
-            
+                res.write('<h1>');
+                res.write(lon1.toString());
+                res.write('</h1>');
+            }
               
               
             
