@@ -80,8 +80,8 @@ app.get('/bus_no_1',function(req,res)
       function loadMapScenario() {
         navigator.geolocation.getCurrentPosition(
           function (position) {
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
+            var latitude = ${lat1.toString()};
+            var longitude = ${lon1.toString()};
 
             var map = new Microsoft.Maps.Map("#myMap", {
               center: new Microsoft.Maps.Location(latitude, longitude),
