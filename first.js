@@ -38,7 +38,7 @@ app.post('/bus_no_1/data', (req1, res1) => {
     lon1 = lon; 
     // Send a response to the client
     res1.sendStatus(200);
-   
+   res1.redirect('/bus_no_1');
   });
 app.get('/bus_no_1',function(req,res)
 {
