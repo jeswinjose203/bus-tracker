@@ -52,7 +52,7 @@ app.get('/bus_no_1',function(req,res)
             res.write(`
             <h1>bus no 1</h1>
             `);
-            if(lat1!=undefined && lat2!=undefined)
+            if(lat1!=undefined && lon1!=undefined)
             {
                 res.write('<h1>');
                 res.write(lat1.toString());
