@@ -61,6 +61,51 @@ app.get('/bus_no_1',function(req,res)
                 res.write('<h1>');
                 res.write(lon1.toString());
                 res.write('</h1>');
+
+
+                res.write(`
+                <!DOCTYPE html>
+<html>
+  <head>
+    <title>My Location</title>
+    <meta charset="utf-8" />
+    <style>
+      #myMap {
+        height: 400px;
+        width: 100%;
+      }
+    </style>
+    <script src="https://www.bing.com/api/maps/mapcontrol?key=AmhMfBZLCSDiPKsfakqFoNOIQAO2ot6WHmRfJOOByGBtg5zNzKwf6IN7zTl7DH2y&callback=loadMapScenario" async defer></script>
+    <script>
+      function loadMapScenario() {
+        navigator.geolocation.getCurrentPosition(
+          function (position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+
+            var map = new Microsoft.Maps.Map("#myMap", {
+              center: new Microsoft.Maps.Location(latitude, longitude),
+              zoom: 15,
+            });
+
+            var pushpin = new Microsoft.Maps.Pushpin(
+              map.getCenter(),
+              null
+            );
+            map.entities.push(pushpin);
+          },
+          function (error) {
+            console.log(error);
+          }
+        );
+      }
+    </script>
+  </head>
+  <body>
+    <div id="myMap"></div>
+  </body>
+</html>
+                `);
             }
               
               
