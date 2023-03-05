@@ -1,0 +1,21 @@
+<html>
+    <body>
+
+    </body>
+    <script>
+       function getBusData() {
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      // Update the contents of the bus-data div with the updated data
+      document.getElementById("bus-data").innerHTML = xhr.responseText;
+    }
+  };
+  xhr.open("GET", "/bus1", true);
+  xhr.send();
+}
+
+// Call the getBusData function every 5 seconds to fetch the updated data
+setInterval(getBusData, 5000);
+    </script>
+</html>
