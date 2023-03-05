@@ -30,7 +30,16 @@ app.get('/',function(req,res){
     });
 });
 var lat1,lon1;
-
+app.post('/bus_no_1/data', (req1, res1) => {
+    var { lat, lon } = req1.body;
+    // Handle the received data here
+    console.log(`Received data: lat=${lat}, lon=${lon}`);
+    lat1 = lat;
+    lon1 = lon; 
+    // Send a response to the client
+    res1.sendStatus(200);
+   res1.redirect('/bus_no_1');
+  });
 app.get('/bus_no_1',function(req,res)
 {
     fs.readFile("index.html", function (error, pgResp){
@@ -43,16 +52,6 @@ app.get('/bus_no_1',function(req,res)
             res.write(`
             <h1>bus no 1</h1>
             `);
-            app.post('/bus_no_1/data', (req1, res1) => {
-              var { lat, lon } = req1.body;
-              // Handle the received data here
-              console.log(`Received data: lat=${lat}, lon=${lon}`);
-              lat1 = lat;
-              lon1 = lon; 
-              // Send a response to the client
-              res1.sendStatus(200);
-             res1.redirect('/bus_no_1');
-            });
             if(lat1!=undefined && lon1!=undefined)
             {
                 res.write('<h1>');
