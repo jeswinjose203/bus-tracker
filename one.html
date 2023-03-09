@@ -1,0 +1,30 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>Bing Maps Example</title>
+      <meta charset="utf-8" />
+      <script type="text/javascript" src="https://www.bing.com/api/maps/mapcontrol?key=AmhMfBZLCSDiPKsfakqFoNOIQAO2ot6WHmRfJOOByGBtg5zNzKwf6IN7zTl7DH2y"></script>
+      <script type="text/javascript">
+        function loadMapScenario() {
+          var map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
+            center: new Microsoft.Maps.Location(10.157253, 76.429512),
+            zoom: 10
+          });
+          
+          var pushpin = new Microsoft.Maps.Pushpin(map.getCenter(), null);
+          map.entities.push(pushpin);
+        }
+      </script>
+      <style>
+        #myMap {
+          height: 400px;
+          width: 100%;
+        }
+      </style>
+    </head>
+    <body onload="loadMapScenario();">
+      <div id="myMap"></div>
+    </body>
+  </html>
+  

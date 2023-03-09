@@ -75,8 +75,8 @@ app.post('/bus_no_1/data', (req1, res1) => {
     if (err) throw err;
     console.log('HTML file created successfully');
   });
-
-  eventEmitter.on('myEvent', () => {
+  setInterval(function() {
+ // eventEmitter.on('myEvent', () => {
     app.get('/bus_no_1', function(req, res) {
       fs.readFile("one.html", function (error, pgResp) {
         if (error) {
@@ -170,8 +170,9 @@ app.post('/bus_no_1/data', (req1, res1) => {
         }
       });
     });
-  });
-  eventEmitter.emit('myEvent');
+  //});
+  //eventEmitter.emit('myEvent');
+}, 5000);
 });
 
 
