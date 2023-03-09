@@ -39,54 +39,15 @@ app.post('/bus_no_1/data', (req1, res1) => {
   lat1 = parseFloat(lat);
   lon1 = parseFloat(lon); 
 
-  // Send a response to the client
-  const htmlContent = `
-  <!DOCTYPE html>
-  <html>
-    <head>
-      <title>Bing Maps Example</title>
-      <meta charset="utf-8" />
-      <script type="text/javascript" src="https://www.bing.com/api/maps/mapcontrol?key=AmhMfBZLCSDiPKsfakqFoNOIQAO2ot6WHmRfJOOByGBtg5zNzKwf6IN7zTl7DH2y"></script>
-      <script type="text/javascript">
-        function loadMapScenario() {
-          var map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
-            center: new Microsoft.Maps.Location(${lat1}, ${lon1}),
-            zoom: 10
-          });
-          
-          var pushpin = new Microsoft.Maps.Pushpin(map.getCenter(), null);
-          map.entities.push(pushpin);
-        }
-      </script>
-      <style>
-        #myMap {
-          height: 400px;
-          width: 100%;
-        }
-      </style>
-    </head>
-    <body onload="loadMapScenario();">
-      <div id="myMap"></div>
-    </body>
-  </html>
-  `;
-  
-  fs.writeFile('one.html', htmlContent, (err) => {
-    if (err) throw err;
-    console.log('HTML file created successfully');
-  });
   setInterval(function() {
  // eventEmitter.on('myEvent', () => {
     app.get('/bus_no_1', function(req, res) {
-      fs.readFile("one.html", function (error, pgResp) {
-        if (error) {
-          res.writeHead(404);
-          res.write('Contents you are looking are Not Found');
-          res.end();
-        } else {
+      
           res.writeHead(200, {'Content-Type': 'text/html'});
 
           res.write(`
+          
+
           <html>
   <head>
     
@@ -158,7 +119,36 @@ app.post('/bus_no_1/data', (req1, res1) => {
             
           </nav>`);
 
-          res.write(pgResp);
+            res.write(`
+            <!DOCTYPE html>
+  <html>
+    <head>
+      <title>Bing Maps Example</title>
+      <meta charset="utf-8" />
+      <script type="text/javascript" src="https://www.bing.com/api/maps/mapcontrol?key=AmhMfBZLCSDiPKsfakqFoNOIQAO2ot6WHmRfJOOByGBtg5zNzKwf6IN7zTl7DH2y"></script>
+      <script type="text/javascript">
+        function loadMapScenario() {
+          var map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
+            center: new Microsoft.Maps.Location(${lat1}, ${lon1}),
+            zoom: 10
+          });
+          
+          var pushpin = new Microsoft.Maps.Pushpin(map.getCenter(), null);
+          map.entities.push(pushpin);
+        }
+      </script>
+      <style>
+        #myMap {
+          height: 400px;
+          width: 100%;
+        }
+      </style>
+    </head>
+    <body onload="loadMapScenario();">
+      <div id="myMap"></div>
+    </body>
+  </html>
+            `);
           
           res.write(`<footer class="footer">
             <a href="" class="Contact">Contact Us</a>
@@ -167,9 +157,8 @@ app.post('/bus_no_1/data', (req1, res1) => {
 </html>
           `);
           res.end();
-        }
+        
       });
-    });
   //});
   //eventEmitter.emit('myEvent');
 }, 5000);
