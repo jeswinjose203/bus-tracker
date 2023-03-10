@@ -3,10 +3,8 @@ var http = require('http');
 const express = require('express');
 const app = express();
 const path = require('path');
-const EventEmitter = require('events');
 const PORT = process.env.PORT || 3030;
 
-var eventEmitter = new EventEmitter();
 
 app.use(express.json());
 app.use(function(req, res, next) {
@@ -31,24 +29,22 @@ app.get('/',function(req,res){
         }
     });
 });
+
 var lat1,lon1;
+
 app.post('/bus_no_1/data', (req1, res1) => {
   var { lat, lon } = req1.body;
   // Handle the received data here
   console.log(`Received data: lat=${lat}, lon=${lon}`);
   lat1 = parseFloat(lat);
   lon1 = parseFloat(lon); 
+  // Send a response to the client
+  res1.redirect(`/bus_no_1`);
+});
 
-  setInterval(function() {
- // eventEmitter.on('myEvent', () => {
-    app.get('/bus_no_1', function(req, res) {
-      
-          res.writeHead(200, {'Content-Type': 'text/html'});
-
-          res.write(`
-          
-
-          <html>
+app.get('/bus_no_1', function(req, res) {
+  res.write(`
+  <html>
   <head>
     
       <link rel="stylesheet" href="css/bootstrap.css">
@@ -117,52 +113,66 @@ app.post('/bus_no_1/data', (req1, res1) => {
               </ul>
             </div>
             
-          </nav>`);
+          </nav>
 
-            res.write(`
-            <!DOCTYPE html>
-  <html>
-    <head>
-      <title>Bing Maps Example</title>
-      <meta charset="utf-8" />
-      <script type="text/javascript" src="https://www.bing.com/api/maps/mapcontrol?key=AmhMfBZLCSDiPKsfakqFoNOIQAO2ot6WHmRfJOOByGBtg5zNzKwf6IN7zTl7DH2y"></script>
-      <script type="text/javascript">
-        function loadMapScenario() {
-          var map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
-            center: new Microsoft.Maps.Location(${lat1}, ${lon1}),
-            zoom: 10
-          });
           
-          var pushpin = new Microsoft.Maps.Pushpin(map.getCenter(), null);
-          map.entities.push(pushpin);
-        }
-      </script>
-      <style>
-        #myMap {
-          height: 400px;
-          width: 100%;
-        }
-      </style>
-    </head>
-    <body onload="loadMapScenario();">
-      <div id="myMap"></div>
-    </body>
-  </html>
-            `);
-          
-          res.write(`<footer class="footer">
+          <footer class="footer">
             <a href="" class="Contact">Contact Us</a>
           </footer>
           </body>
 </html>
-          `);
-          res.end();
-        
-      });
-  //});
-  //eventEmitter.emit('myEvent');
-}, 5000);
+  `);
+  res.write(`
+  <h1>lat : ${lat1}</h1>
+    <h1>lon : ${lon1}</h1>
+    <head>
+    <title>My Location</title>
+    <meta charset="utf-8" />
+    <style>
+      #myMap {
+        height: 400px;
+        width: 100%;
+      }
+    </style>
+    <script src="https://www.bing.com/api/maps/mapcontrol?key=AmhMfBZLCSDiPKsfakqFoNOIQAO2ot6WHmRfJOOByGBtg5zNzKwf6IN7zTl7DH2y&callback=loadMapScenario" async defer></script>
+    <script>
+      function loadMapScenario() {
+        navigator.geolocation.getCurrentPosition(
+          function (position) {
+            var latitude = ${lat1};
+            var longitude = ${lon1};
+            var map = new Microsoft.Maps.Map("#myMap", {
+              center: new Microsoft.Maps.Location(latitude, longitude),
+              zoom: 15,
+            });
+            var pushpin = new Microsoft.Maps.Pushpin(
+              map.getCenter(),
+              null
+            );
+            map.entities.push(pushpin);
+          },
+          function (error) {
+            console.log(error);
+          }
+        );
+      }
+    </script>
+  </head>
+  <body>
+    <div id="myMap"></div>
+  </body>
+  `);
+  res.write(`
+    <script>
+      setTimeout(function(){
+        location.reload();
+      }, 5000);
+    </script>
+  `);
+  res.end();
 });
+
+
 
 
 app.get('/bus_no_2',function(req,res)
