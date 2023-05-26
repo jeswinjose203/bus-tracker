@@ -4,11 +4,17 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const PORT = process.env.PORT || 3030;
+const axios = require('axios');
+const apiKey = 'AmhMfBZLCSDiPKsfakqFoNOIQAO2ot6WHmRfJOOByGBtg5zNzKwf6IN7zTl7DH2y';
+const say = require('say');
+
+
+
 
 
 app.use(express.json());
 app.use(function(req, res, next) {
-    //res.header("Access-Control-Allow-Origin", "http://127.0.0.1:3020"); // replace "*" with the appropriate origin
+    //res.header("Access-Control-Allow-Origin", "http://127.0.0.1:8080"); // replace "*" with the appropriate origin
     res.header("Access-Control-Allow-Origin", "https://tracker-41x9.onrender.com");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
@@ -31,7 +37,7 @@ app.get('/',function(req,res){
 });
 
 var lat1,lon1,lat2,lon2;
-
+var placeName1,test1;
 app.post('/bus_no_1/data', (req1, res1) => {
   var { lat, lon } = req1.body;
   // Handle the received data here
@@ -39,6 +45,56 @@ app.post('/bus_no_1/data', (req1, res1) => {
   lat1 = parseFloat(lat);
   lon1 = parseFloat(lon); 
   // Send a response to the client
+
+
+
+
+
+
+
+  var latitude = lat; // Example latitude
+var longitude = lon; // Example longitude
+
+axios.get(`https://dev.virtualearth.net/REST/v1/Locations/${latitude},${longitude}`, {
+  params: {
+    key: apiKey,
+  },
+})
+  .then((response) => {
+    const resourceSets = response.data.resourceSets;
+    if (resourceSets.length > 0) {
+      const resources = resourceSets[0].resources;
+      if (resources.length > 0) {
+        placeName1 = resources[0].name;
+        console.log('Place Name:', placeName1);
+      } else {
+        console.log('No results found.');
+      }
+    } else {
+      console.log('No results found.');
+    }
+  })
+  .catch((error) => {
+    console.error('Error:', error.message);
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   res1.redirect(`/bus_no_1`);
 });
 app.post('/bus_no_2/data', (req2, res2) => {
@@ -51,6 +107,35 @@ app.post('/bus_no_2/data', (req2, res2) => {
   res2.redirect(`/bus_no_2`);
 });
 app.get('/bus_no_1', function(req, res) {
+
+
+
+
+  
+
+// Text to convert to speech
+var text = 'Updated Location of the bus is : ' + placeName1;
+
+// Use the say module to speak the text
+if(test1!=placeName1)
+{
+say.speak(text);
+}
+test1 = placeName1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   res.write(`
   <html>
   <head>
@@ -133,6 +218,7 @@ app.get('/bus_no_1', function(req, res) {
   res.write(`
   <h1>lat : ${lat1}</h1>
     <h1>lon : ${lon1}</h1>
+    <h1>place name: ${placeName1} </h1>
     <head>
     <title>My Location</title>
     <meta charset="utf-8" />
