@@ -23,8 +23,9 @@ app.use(function(req, res, next) {
 app.use(express.urlencoded({ extended: true }));
 app.use('/css',express.static(path.join(__dirname,'node_modules/bootstrap/dist/css')));
 app.use('/js',express.static(path.join(__dirname,'node_modules/bootstrap/dist/js')));
+app.use(express.static(path.join(__dirname, 'images')));
 app.get('/',function(req,res){
-    fs.readFile("index.html", function (error, pgResp){
+    fs.readFile("home.html", function (error, pgResp){
         
         if (error) {
             res.writeHead(404);
