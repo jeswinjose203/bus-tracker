@@ -14,8 +14,8 @@ const apiKey = 'AmhMfBZLCSDiPKsfakqFoNOIQAO2ot6WHmRfJOOByGBtg5zNzKwf6IN7zTl7DH2y
 
 app.use(express.json());
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://127.0.0.1:8080"); // replace "*" with the appropriate origin
-    //res.header("Access-Control-Allow-Origin", "https://tracker-41x9.onrender.com");
+    //res.header("Access-Control-Allow-Origin", "http://127.0.0.1:8080"); // replace "*" with the appropriate origin
+    res.header("Access-Control-Allow-Origin", "https://tracker-41x9.onrender.com");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
