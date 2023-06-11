@@ -6,7 +6,7 @@ const path = require('path');
 const PORT = process.env.PORT || 3030;
 const axios = require('axios');
 const apiKey = 'AmhMfBZLCSDiPKsfakqFoNOIQAO2ot6WHmRfJOOByGBtg5zNzKwf6IN7zTl7DH2y';
-const say = require('say');
+//const say = require('say');
 
 
 
@@ -111,7 +111,7 @@ app.get('/bus_no_1', function(req, res) {
 
 
 
-
+/*
   
 
 // Text to convert to speech
@@ -127,7 +127,7 @@ test1 = placeName1;
 
 
 
-
+*/
 
 
 
